@@ -1,0 +1,25 @@
+[project]
+name = "uv-example"
+version = "0.1.0"
+description = "uv example for Chainguard Libraries for Python"
+requires-python = ">=3.11"
+dependencies = [
+    "flask==2.0.0",
+    "werkzeug==3.0.2",
+]
+
+[tool.uv]
+# Manage the environment only; do not try to build this example as a package.
+package = false
+# Allow uv to pick the best match across the configured indexes so the
+# remediated *+cgr.N builds are chosen.
+index-strategy = "unsafe-best-match"
+
+[[tool.uv.index]]
+name = "cgr-remediated"
+url = "https://libraries.cgr.dev/python-remediated/simple"
+
+[[tool.uv.index]]
+name = "cgr"
+url = "https://libraries.cgr.dev/python/simple"
+default = true

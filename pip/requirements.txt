@@ -1,0 +1,10 @@
+# Direct access to Chainguard Libraries for Python.
+# Credentials come from .netrc, which test.sh writes from the pull-token
+# environment variables. See ../tools/README.md.
+--index-url https://libraries.cgr.dev/python/simple
+--extra-index-url https://libraries.cgr.dev/python-remediated/simple
+
+# Pinned upstream versions; the remediated context serves the matching
+# *+cgr.N builds, which satisfy these specifiers and are preferred.
+flask==2.0.0
+werkzeug==3.0.2
