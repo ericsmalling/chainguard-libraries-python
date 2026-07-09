@@ -55,5 +55,5 @@ your own dependencies to test.
 * [Chainguard Libraries documentation](https://edu.chainguard.dev/chainguard/libraries/)
 * [Chainguard Libraries for Python documentation](https://edu.chainguard.dev/chainguard/libraries/python/)
 * [Chainguard learning labs with more demos](https://edu.chainguard.dev/software-security/learning-labs/)
-* [Chainguard Libraries for Java examples](https://github.com/mosabua/chainguard-libraries-java)
-* [Chainguard Libraries for JavaScript examples](https://github.com/mosabua/chainguard-libraries-javascript)
+* [Chainguard Libraries for Java examples](https://github.com/chainguard-demo/chainguard-libraries-java)
+* [Chainguard Libraries for JavaScript examples](https://github.com/chainguard-demo/chainguard-libraries-javascript)
