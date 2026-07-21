@@ -30,31 +30,29 @@ Evaluate the output directly to export both variables into the current shell:
 eval "$(chainctl auth pull-token --output env --repository=python)"
 ```
 
-Create pull token for access to Python libraries for the chainguard.edu
-organization, output environment variable commands, and pipe commands into a
-shell script. Change the parent parameter to your organization name.
+Write the export commands to a script to source later:
 
 ```shell
-chainctl auth pull-token --output env --repository=python --parent=chainguard.edu > python-access.sh
-```
-
-Load the environment variables for use in a terminal.
-
-```shell
+chainctl auth pull-token --output env --repository=python > python-access.sh
 source python-access.sh
 ```
 
-Create new pull token for access to Python libraries and set environment
-variables:
+If you are a member of multiple organizations the preceding example commands
+must use the `--parent` parameter with the name of your organization:
 
 ```shell
-eval $(chainctl auth pull-token --output env --repository=python --parent=chainguard.edu)
+eval "$(chainctl auth pull-token --output env --parent=chainguard.edu --repository=python)"
+```
+
+```shell
+chainctl auth pull-token --output env --repository=python --parent=chainguard.edu > python-access.sh
 ```
 
 Create a policy for no cooldown and use it for Python:
 
 ```shell
 chainctl libraries policy create --name=no-cooldown --cooldown-days=0
+chainctl libraries policy describe no-cooldown
 chainctl libraries policy enable --policy=no-cooldown --ecosystem=PYTHON --mode=ENFORCE
 ```
 
