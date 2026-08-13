@@ -38,6 +38,34 @@ eval "$(chainctl auth pull-token --output env --repository=python)"
 ./demo.sh
 ```
 
+## Keeping lockfile hashes current
+
+`pylock.toml` is a [PEP 751](https://peps.python.org/pep-0751/) lockfile pinning
+each artifact to a SHA-256 hash. `pylock.toml.upstream` is the unmodified
+version resolved from PyPI, kept for comparison.
+
+[`../.github/workflows/update-pylock-hashes.yml`](../.github/workflows/update-pylock-hashes.yml)
+runs `chainctl libraries update-hashes pylock.toml` weekly (and on demand via
+**Run workflow**) and opens a pull request when the hashes change. The
+`remediated` input switches the lookup to the `python-remediated` catalog so the
+lockfile pins the `*+cgr.N` builds.
+
+Note that `pylock.toml` stores one hash per artifact, so Chainguard hashes always
+*replace* the upstream ones rather than being appended. Once the workflow has
+run, the lockfile only installs against a Chainguard index.
+
+To run it in your own fork, configure:
+
+| Setting | Value |
+|---|---|
+| Secret `CHAINGUARD_IDENTITY` | A Chainguard assumable identity ID, created with `chainctl iam identity create github` and granted `libraries.python.pull_token_creator` |
+| Variable `CHAINGUARD_ORG` | The organization holding the Python entitlement, passed as `--parent` |
+| Repository setting | **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** |
+
+The workflow authenticates through GitHub OIDC, so no long-lived pull token is
+stored. `update-hashes` mints a short-lived pull token itself, which is why the
+identity needs the token-creator role rather than plain `libraries.python.pull`.
+
 ## Iterate
 
 To test a different package, edit `requirements.txt` and run the script again.
